@@ -1,0 +1,15 @@
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\bin\Debug\net8.0\Lab1 - knapsack problem.exe
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\bin\Debug\net8.0\Lab1 - knapsack problem.deps.json
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\bin\Debug\net8.0\Lab1 - knapsack problem.runtimeconfig.json
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\bin\Debug\net8.0\Lab1 - knapsack problem.dll
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\bin\Debug\net8.0\Lab1 - knapsack problem.pdb
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\obj\Debug\net8.0\Lab1 - knapsack problem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\obj\Debug\net8.0\Lab1 - knapsack problem.AssemblyInfoInputs.cache
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\obj\Debug\net8.0\Lab1 - knapsack problem.AssemblyInfo.cs
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\obj\Debug\net8.0\Lab1 - knapsack problem.csproj.CoreCompileInputs.cache
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\obj\Debug\net8.0\Lab1 - knapsack problem.sourcelink.json
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\obj\Debug\net8.0\Lab1 - knapsack problem.dll
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\obj\Debug\net8.0\refint\Lab1 - knapsack problem.dll
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\obj\Debug\net8.0\Lab1 - knapsack problem.pdb
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\obj\Debug\net8.0\Lab1 - knapsack problem.genruntimeconfig.cache
+C:\Users\szsen\Studia\.NET\Lab1 - knapsack problem\Lab1 - knapsack problem\obj\Debug\net8.0\ref\Lab1 - knapsack problem.dll
