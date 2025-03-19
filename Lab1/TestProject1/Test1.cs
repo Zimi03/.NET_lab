@@ -88,6 +88,7 @@ namespace TestProject1
                 if (items[i].id == items[i + 1].id)
                 {
                     isUnique = false;
+                    break;
                 }
             }
             Assert.IsTrue(isUnique, "Ids must be unique");
