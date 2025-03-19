@@ -48,7 +48,9 @@ namespace KnapsackProblem
         }
         public override string ToString()
         {
-            return $"Items_ids: [{string.Join(", ", itemIds)}], Total Value: {totalValue}, Total Weight: {totalWeight}";
+            return $"Items_ids: [{string.Join(", ", itemIds)}]{Environment.NewLine}" +
+                $"Total Value: {totalValue}{Environment.NewLine}" +
+                $"Total Weight: {totalWeight}";
         }
     }
 }

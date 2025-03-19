@@ -70,5 +70,27 @@ namespace TestProject1
             Assert.AreEqual(result.getTotalWeight(), expectedWeight);
 
         }
+        [TestMethod]
+        public void TestItemsLength()
+        { 
+            Problem problem = new(5, 1);
+            Assert.AreEqual(5, problem.getItemsLength());
+        }
+
+        [TestMethod]
+        public void TestIdsUniqueness()
+        {
+            Problem problem = new(5, 1);
+            Item[] items = problem.GetItems();
+            bool isUnique = true;
+            for(int i = 0; i < items.Length - 2; i++)
+            {
+                if (items[i].id == items[i + 1].id)
+                {
+                    isUnique = false;
+                }
+            }
+            Assert.IsTrue(isUnique, "Ids must be unique");
+        }
     }
 }
