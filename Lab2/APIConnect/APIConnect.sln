@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIConnect", "APIConnect.csproj", "{2D9AF95A-7144-45E4-8A7C-04DF793B2FAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D9AF95A-7144-45E4-8A7C-04DF793B2FAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D9AF95A-7144-45E4-8A7C-04DF793B2FAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D9AF95A-7144-45E4-8A7C-04DF793B2FAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D9AF95A-7144-45E4-8A7C-04DF793B2FAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {683FDD79-7A33-485F-BAB3-F50D138BD124}
+	EndGlobalSection
+EndGlobal
