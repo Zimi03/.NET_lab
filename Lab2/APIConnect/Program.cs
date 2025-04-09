@@ -45,7 +45,7 @@ namespace APIConnect
                 case 2:
                     Console.WriteLine("Podaj tabele");
                     Console.WriteLine("1. BaseCurrency");
-                    Console.WriteLine("2. urrencyRate");
+                    Console.WriteLine("2. CurrencyRate");
                     int option_3 = Convert.ToInt32(Console.ReadLine());
                     switch (option_3)
                     {
