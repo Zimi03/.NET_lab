@@ -9,8 +9,8 @@ namespace APIConnect
     public class Currencies
     {
         public long timestamp { get; set; }
-        public string Base { get; set; }
-        public Dictionary<string, float> rates { get; set; }  // Fix here
+        public string? Base { get; set; }
+        public Dictionary<string, float>? rates { get; set; }  
 
         public override string ToString()
         {
