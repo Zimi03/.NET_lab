@@ -5,8 +5,7 @@ namespace MultiThread
     {
         static void Main(string[] args)
         {
-
-            BenchmarkMatrixMultiplication("ParallelResults.txt");
+            BenchmarkMatrixMultiplication("ThreadResults.txt");
         }
         static void BenchmarkMatrixMultiplication(string filePath)
         {
@@ -25,8 +24,8 @@ namespace MultiThread
 
                         for (int i = 0; i < repetitions; i++)
                         {
-                            var multiplier = new ParallelMatrixMultiplying(size, threads);
-                            multiplier.MultiplyMatricesParallel();
+                            var multiplier = new MatrixMultiplying(size, threads);
+                            multiplier.MultiplyMatricesThread();
                             totalTime[i] = multiplier.elapsedMilliseconds;
                         }
 
