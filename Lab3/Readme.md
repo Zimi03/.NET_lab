@@ -1,2 +1,2 @@
 # Operacje wielowątkowe
-#1. Mnożenie macierzy na wątkach
+# 1. Mnożenie macierzy na wątkach
