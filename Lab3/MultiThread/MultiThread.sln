@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35825.156 d17.13
+VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiThread", "MultiThread.csproj", "{63CE69B8-43DA-40F4-BB16-0B999F0EAC6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageProcessing", "..\ImageProcessing\ImageProcessing.csproj", "{EBC85F34-6A22-4309-AF54-AC9FEE4F6B19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{63CE69B8-43DA-40F4-BB16-0B999F0EAC6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63CE69B8-43DA-40F4-BB16-0B999F0EAC6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63CE69B8-43DA-40F4-BB16-0B999F0EAC6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBC85F34-6A22-4309-AF54-AC9FEE4F6B19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBC85F34-6A22-4309-AF54-AC9FEE4F6B19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBC85F34-6A22-4309-AF54-AC9FEE4F6B19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBC85F34-6A22-4309-AF54-AC9FEE4F6B19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
