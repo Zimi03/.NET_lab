@@ -1,0 +1,1 @@
+# Operajce wielowatkowe
