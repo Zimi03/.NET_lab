@@ -1,1 +1,1 @@
-# Operajce wielowatkowe
+# Operajce wielowątkowe
