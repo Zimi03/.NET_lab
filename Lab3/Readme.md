@@ -64,7 +64,7 @@ public void MultiplyMatricesParallel()
         }
 ```
 Mnożenie z wykorzystaniem biblioteki _Parallel_ wykonano z użyciem pętli _For_ dostępnej w bibliotece _Parallel_, która automatycznie przydziela zadania wątkom. 
-## 1b.
+## 1b. Mnożenie macierzy z użyciem biblioteki Thread
 ``` C#
 public void MultiplyMatricesThread()
         { 
