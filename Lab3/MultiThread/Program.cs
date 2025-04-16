@@ -5,37 +5,55 @@ namespace MultiThread
     {
         static void Main(string[] args)
         {
-            BenchmarkMatrixMultiplication("ThreadResults.txt");
+            string filePath = "ThreadResults.txt";
+
+            var methods = new Dictionary<string, Action<MatrixMultiplying>>
+            {           
+                { "MultiplyMatricesThread", m => m.MultiplyMatricesThread() },
+                { "MultiplyMatricesParallel", m => m.MultiplyMatricesParallel() }
+            };
+
+            foreach (var method in methods)
+            {
+                BenchmarkMethod(method.Key, method.Value, filePath);
+            }
         }
-        static void BenchmarkMatrixMultiplication(string filePath)
+
+        
+
+        static void BenchmarkMethod(string methodName, Action<MatrixMultiplying> multiplyMethod, string filePath)
         {
-            int[] sizes = { 100, 200, 400 };
-            int[] threadCounts = { 1, 2, 4 };
+            int[] sizes = { 100, 200, 400, 1000};
+            int[] threadCounts = { 1, 2, 4, 8 };
             int repetitions = 5;
 
-            using (var writer = new StreamWriter(filePath))
+            // Dopisz do pliku jeśli istnieje, albo utwórz nowy
+            bool fileExists = File.Exists(filePath);
+            using (var writer = new StreamWriter(filePath, append: true))
             {
-                writer.WriteLine("Rozmiar, Ilość wątków, średni czas[ms]");
+                if (!fileExists)
+                    writer.WriteLine("Metoda, Rozmiar, Ilość wątków, Średni czas [ms]");
+
                 foreach (int size in sizes)
                 {
                     foreach (int threads in threadCounts)
                     {
-                        long[] totalTime = new long[repetitions];
+                        long[] times = new long[repetitions];
 
                         for (int i = 0; i < repetitions; i++)
                         {
                             var multiplier = new MatrixMultiplying(size, threads);
-                            multiplier.MultiplyMatricesThread();
-                            totalTime[i] = multiplier.elapsedMilliseconds;
+                            multiplyMethod(multiplier);
+                            times[i] = multiplier.elapsedMilliseconds;
                         }
 
-                        double averageTime = totalTime.Average();
-                        Console.WriteLine($"Rozmiar: {size}x{size}, Wątki: {threads}, Średni czas: {averageTime} ms");
-                        writer.WriteLine($"{size},{threads},{averageTime}");
+                        double avgTime = times.Average();
+                        Console.WriteLine($"[{methodName}] Rozmiar: {size}x{size}, Wątki: {threads}, Średni czas: {avgTime} ms");
+                        writer.WriteLine($"{methodName},{size},{threads},{avgTime}");
                     }
                 }
             }
-        }
 
+        }
     }
 }
