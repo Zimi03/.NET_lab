@@ -109,7 +109,33 @@ Do mnożenia macierzy z wykorzystaniem biblioteki _Thread_ użyta została funkc
 1. Była wywoływana w momencie tworzenia wątku
 2. Pozwalała przydzielić konkretnym wątkom, konkretne wiersze macierzy, za wymnożenie których odpowiedzialny był konkretny wątek.
 
-## 1c. Wyniki
+## 1c. Badania i wyniki
+Badania zostały przeprowadzone w następujący sposób: 
+wybrane zostały 3 rozmiary macierzy: 100, 200, 400, testy przeprowadzono na 3 ilościach wątków: 1, 2, 4. Dla każdego rozmiaru i ilości wątków wykonane zostało 5 powtórzeń dla różnych liczb w macierzach, wzięte zostały wyniki uśrednione. 
+Parallel		
+Rozmiar	Ilość wątków	średni czas[ms]
+100	1	11,4
+100	2	3,4
+100	4	2,6
+200	1	56,2
+200	2	29,2
+200	4	16,8
+400	1	454,4
+400	2	234
+400	4	124![image](https://github.com/user-attachments/assets/da532fac-2582-4f3d-bdd3-ddd3dc2cbbe6)
+
+Thread		
+Rozmiar	Ilość wątków	średni czas[ms]
+100	1	12,6
+100	2	3,8
+100	4	2,4
+200	1	58,8
+200	2	29,6
+200	4	18,6
+400	1	462,2
+400	2	236,2
+400	4	124![image](https://github.com/user-attachments/assets/7712e2ef-a7af-445d-badb-3ad18963b11a)
+
 
 
 
