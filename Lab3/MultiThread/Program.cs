@@ -15,7 +15,7 @@ namespace MultiThread
 
             foreach (var method in methods)
             {
-                BenchmarkMethod(method.Key, method.Value, filePath);
+                BenchmarkMethod(method.Key, method.Value, method.Key + ".txt");
             }
         }
 
@@ -23,7 +23,7 @@ namespace MultiThread
 
         static void BenchmarkMethod(string methodName, Action<MatrixMultiplying> multiplyMethod, string filePath)
         {
-            int[] sizes = { 100, 200, 400, 1000};
+            int[] sizes = { 100, 200};
             int[] threadCounts = { 1, 2, 4, 8 };
             int repetitions = 5;
 
@@ -49,7 +49,7 @@ namespace MultiThread
 
                         double avgTime = times.Average();
                         Console.WriteLine($"[{methodName}] Rozmiar: {size}x{size}, Wątki: {threads}, Średni czas: {avgTime} ms");
-                        writer.WriteLine($"{methodName},{size},{threads},{avgTime}");
+                        writer.WriteLine($"{methodName};{size};{threads};{avgTime}");
                     }
                 }
             }
