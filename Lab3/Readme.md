@@ -114,13 +114,13 @@ Badania zostały przeprowadzone w następujący sposób:
 wybrane zostały 3 rozmiary macierzy: 100, 200, 400, testy przeprowadzono na 3 ilościach wątków: 1, 2, 4. Dla każdego rozmiaru i ilości wątków wykonane zostało 5 powtórzeń dla różnych liczb w macierzach, wzięte zostały wyniki uśrednione. 
 
 <p align="center">
-  <img width="400" height="280" src="https://github.com/user-attachments/assets/da532fac-2582-4f3d-bdd3-ddd3dc2cbbe6" alt="Benchmark mnożenia macierzy">
+  <img width="400" height="600" src="https://github.com/user-attachments/assets/d3b44d84-c2bf-43ac-98a5-bbe8ca837ff5" alt="Benchmark mnożenia macierzy">
   <br>
   <em>Wyniki benchmarku dla mnożenia macierzy z użyciem biblioteki Parallel</em>
 </p>
 
 <p align="center">
-  <img width="400" height="280" src="https://github.com/user-attachments/assets/7712e2ef-a7af-445d-badb-3ad18963b11a">
+  <img width="400" height="600" src="https://github.com/user-attachments/assets/cacfa83b-2a11-412c-9959-4d9211ef619a">
    <br>
   <em>Wyniki benchmarku dla mnożenia macierzy z użyciem biblioteki Parallel</em>
 </p>
@@ -132,7 +132,8 @@ Proces mnożenia macierzy jest idealnym problemem do zrównoleglenia, poniewać 
 ### Biblioteka Thread a Parallel
 Udało się uzyskać bardzo zbliżone wyniki pomiędzy bibliotekami. W większości przypadków operacja z użyciem biblioteki _Parallel_ była szybsza, jednak były takie przypadki kiedy to _Thread_ okazał się szybszy. W większości przypadków biblioteka _Parallel_ jest szybsza, jest tak ze względu na to że działamy wysokopoziomowo, a biblioteka sama w sobie ma optymalnie rozwiązane działania niskopoziomowe. 
 Z kolei zbliżenie się wynikami z użyciem biblioteki _Thread_ świadczy o dobrym podejściu do niskopoziomowego zarządzania wątkami - dobrym podzieleniu zadań między wątki.
-
+### Ilość zadeklarowanych wątków, a ilość wątków fizycznych
+Testy zostały przeprowadzone na wirtualnej maszynie, która miała do dyspozycji 4 fizyczne wątki. Przy testach dla 8 wątków, widać, że lepiej radzi sobie biblioteka _Parallel_. Jest tak dlatego, że biblioteka _Thread_ marnuje czas na utworzenie i przydzielenie zadań wątkom, których fizycznie nie ma. Biblioteka _Parallel_ nawet jeżeli dostanie informację o wykorzystaniu większej ilości wątków niż jest fizycznie dostępne, wykorzysta liczbę maksymalnie dostępnych. Chociaż i z jej wykorzystaniem widać dłuższe czasy dla 8 wątków niż dla 4.
 # 2. Wielowątkowe przetwarzanie obrazów - GUI
 <p align="center">
 <img width="1279" alt="image" src="https://github.com/user-attachments/assets/2b8c38c3-8295-4bf7-b3f5-592c9e3fd4b9" />
