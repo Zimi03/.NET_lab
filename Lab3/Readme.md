@@ -112,35 +112,145 @@ Do mnożenia macierzy z wykorzystaniem biblioteki _Thread_ użyta została funkc
 ## 1c. Badania i wyniki
 Badania zostały przeprowadzone w następujący sposób: 
 wybrane zostały 3 rozmiary macierzy: 100, 200, 400, testy przeprowadzono na 3 ilościach wątków: 1, 2, 4. Dla każdego rozmiaru i ilości wątków wykonane zostało 5 powtórzeń dla różnych liczb w macierzach, wzięte zostały wyniki uśrednione. 
-Parallel		
-Rozmiar	Ilość wątków	średni czas[ms]
-100	1	11,4
-100	2	3,4
-100	4	2,6
-200	1	56,2
-200	2	29,2
-200	4	16,8
-400	1	454,4
-400	2	234
-400	4	124![image](https://github.com/user-attachments/assets/da532fac-2582-4f3d-bdd3-ddd3dc2cbbe6)
 
-Thread		
-Rozmiar	Ilość wątków	średni czas[ms]
-100	1	12,6
-100	2	3,8
-100	4	2,4
-200	1	58,8
-200	2	29,6
-200	4	18,6
-400	1	462,2
-400	2	236,2
-400	4	124![image](https://github.com/user-attachments/assets/7712e2ef-a7af-445d-badb-3ad18963b11a)
+<p align="center">
+  <img width="400" height="280" src="https://github.com/user-attachments/assets/da532fac-2582-4f3d-bdd3-ddd3dc2cbbe6" alt="Benchmark mnożenia macierzy">
+  <br>
+  <em>Wyniki benchmarku dla mnożenia macierzy z użyciem biblioteki Parallel</em>
+</p>
+
+<p align="center">
+  <img width="400" height="280" src="https://github.com/user-attachments/assets/7712e2ef-a7af-445d-badb-3ad18963b11a">
+   <br>
+  <em>Wyniki benchmarku dla mnożenia macierzy z użyciem biblioteki Parallel</em>
+</p>
 
 
+## 1d. Wnioski
+### Wielowątkowość
+Proces mnożenia macierzy jest idealnym problemem do zrównoleglenia, poniewać każdy wątek działa na osobnym zasobie, dzięki czemu nie trzeba blokować zasobów. To przekłada się na liniowe przyspieszenie wykonywanych operacji. Czas skrócenia operacji jest proporcjonalny do ilości wątków między które podzielone są zadania.
+### Biblioteka Thread a Parallel
+Udało się uzyskać bardzo zbliżone wyniki pomiędzy bibliotekami. W większości przypadków operacja z użyciem biblioteki _Parallel_ była szybsza, jednak były takie przypadki kiedy to _Thread_ okazał się szybszy. W większości przypadków biblioteka _Parallel_ jest szybsza, jest tak ze względu na to że działamy wysokopoziomowo, a biblioteka sama w sobie ma optymalnie rozwiązane działania niskopoziomowe. 
+Z kolei zbliżenie się wynikami z użyciem biblioteki _Thread_ świadczy o dobrym podejściu do niskopoziomowego zarządzania wątkami - dobrym podzieleniu zadań między wątki.
+
+# 2. Wielowątkowe przetwarzanie obrazów - GUI
+<p align="center">
+<img width="1279" alt="image" src="https://github.com/user-attachments/assets/2b8c38c3-8295-4bf7-b3f5-592c9e3fd4b9" />
+<br>
+<em>Aplikacja okienkowa do wielowątkowego przetwarzania obrazu</em>
+</p>
+W tej części projektu stworzona została aplikacja do wielowątkowego przetwarzania obrazu. Jeden wątek był odpowiedzialny za jedną operację przetworzenia. W aplikacji zastosowane zostały 4 operajce przetwarzania:
+
+1. Odcienie szarości
+2. Progowanie
+3. Negatyw
+4. Odbicie lustrzane
+
+Filtry w kodzie
+``` C#
+public static class Filters
+    {
+        public static Bitmap ToGrayScale(Bitmap source)
+        {
+            Bitmap result = new Bitmap(source);
+            for (int y = 0; y < result.Height; y++)
+            {
+                for (int x = 0; x < result.Width; x++)
+                {
+                    Color pixel = result.GetPixel(x, y);
+                    int gray = (int)(0.3 * pixel.R + 0.59 * pixel.G + 0.11 * pixel.B);
+                    Color grayColor = Color.FromArgb(gray, gray, gray);
+                    result.SetPixel(x, y, grayColor);
+                }
+            }
+            return result;
+        }
+
+        public static Bitmap ToThreshold(Bitmap source, int threshold = 128)
+        {
+            Bitmap result = new Bitmap(source);
+            for (int y = 0; y < result.Height; y++)
+            {
+                for (int x = 0; x < result.Width; x++)
+                {
+                    Color pixel = result.GetPixel(x, y);
+                    int gray = (int)(0.3 * pixel.R + 0.59 * pixel.G + 0.11 * pixel.B);
+                    Color color = gray < threshold ? Color.Black : Color.White;
+                    result.SetPixel(x, y, color);
+                }
+            }
+            return result;
+        }
+
+        public static Bitmap ToNegative(Bitmap source)
+        {
+            Bitmap result = new Bitmap(source);
+            for (int y = 0; y < result.Height; y++)
+            {
+                for (int x = 0; x < result.Width; x++)
+                {
+                    Color pixel = result.GetPixel(x, y);
+                    Color negColor = Color.FromArgb(255 - pixel.R, 255 - pixel.G, 255 - pixel.B);
+                    result.SetPixel(x, y, negColor);
+                }
+            }
+            return result;
+        }
+
+        public static Bitmap ToMirror(Bitmap source)
+        {
+            Bitmap result = new Bitmap(source);
+            for (int y = 0; y < result.Height; y++)
+            {
+                for (int x = 0; x < result.Width / 2; x++)
+                {
+                    Color left = result.GetPixel(x, y);
+                    Color right = result.GetPixel(result.Width - x - 1, y);
+                    result.SetPixel(x, y, right);
+                    result.SetPixel(result.Width - x - 1, y, left);
+                }
+            }
+            return result;
+        }
+    }
+```
+Przetwarzanie obrazu po naciśnięciu guzika
+``` C#
+private void button2_Click(object sender, EventArgs e)
+        {
+            if (img == null)
+            {
+                MessageBox.Show("Provide Image First");
+                return;
+            }
+
+            var sourceClones = new Bitmap[] {
+                (Bitmap)img.Clone(),
+                (Bitmap)img.Clone(),
+                (Bitmap)img.Clone(),
+                (Bitmap) img.Clone()
+            };
+
+            Action[] filters = new Action[]
+            {
+                () => {GreyScale.Image = Filters.ToGrayScale(sourceClones[0]); },
+                () => {Threshold.Image = Filters.ToThreshold(sourceClones[1]); },
+                () => {Negative.Image = Filters.ToNegative(sourceClones[2]); },
+                () => {Mirroring.Image = Filters.ToMirror(sourceClones[3]); }
+            };
 
 
+            Parallel.For(0, filters.Length, i =>
+            {
+                filters[i]();
+            });
+            textBox2.Visible = true;
+            textBox3.Visible = true;
+            textBox4.Visible = true;
+            textBox5.Visible = true;
 
-
+        }
+```
 
 
 
