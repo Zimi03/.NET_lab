@@ -5,8 +5,6 @@ namespace MultiThread
     {
         static void Main(string[] args)
         {
-            string filePath = "ThreadResults.txt";
-
             var methods = new Dictionary<string, Action<MatrixMultiplying>>
             {           
                 { "MultiplyMatricesThread", m => m.MultiplyMatricesThread() },
@@ -20,10 +18,9 @@ namespace MultiThread
         }
 
         
-
         static void BenchmarkMethod(string methodName, Action<MatrixMultiplying> multiplyMethod, string filePath)
         {
-            int[] sizes = { 100, 200};
+            int[] sizes = { 100, 200, 400, 1000};
             int[] threadCounts = { 1, 2, 4, 8 };
             int repetitions = 5;
 
