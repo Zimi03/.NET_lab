@@ -81,7 +81,7 @@ else
     private void Input(ChangeEventArgs arg)
     {
         string filter = arg.Value?.ToString() ?? string.Empty;
-        VisibleForecasts = OriginalForecasts?.Where(f => f.Summary != null && f.Summary.Contains(filter)).ToArray();
+        VisibleForecasts = VisibleForecasts?.Where(f => f.Summary != null && f.Summary.Contains(filter)).ToArray();
 
     }
 
