@@ -1,0 +1,118 @@
+﻿@page "/books/edit"
+@using Microsoft.EntityFrameworkCore
+@using RatingApp.Components
+@inject IDbContextFactory<RatingApp.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+<h2>Book</h2>
+<hr />
+
+<AuthorizeView>
+    <Authorized Context="authContext">
+        @if (Book is null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    <EditForm Model="Book" OnValidSubmit="UpdateBook">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        <input type="hidden" name="Book.Id" value="@Book.Id" />
+                        <div class="mb-3">
+                            <label for="author" class="form-label">Author:</label>
+                            <InputText id="author" @bind-Value="Book.Author" class="form-control" />
+                            <ValidationMessage For="() => Book.Author" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title:</label>
+                            <InputText id="title" @bind-Value="Book.Title" class="form-control" />
+                            <ValidationMessage For="() => Book.Title" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="releasedate" class="form-label">ReleaseDate:</label>
+                            <InputDate id="releasedate" @bind-Value="Book.ReleaseDate" class="form-control" />
+                            <ValidationMessage For="() => Book.ReleaseDate" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="rate" class="form-label">Rate:</label>
+                            <InputNumber id="rate" @bind-Value="Book.Rate" class="form-control" />
+                            <ValidationMessage For="() => Book.Rate" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="shortreview" class="form-label">ShortReview:</label>
+                            <InputText id="shortreview" @bind-Value="Book.ShortReview" class="form-control" />
+                            <ValidationMessage For="() => Book.ShortReview" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="photouri" class="form-label">PhotoUri:</label>
+                            <InputText id="photouri" @bind-Value="Book.PhotoUri" class="form-control" />
+                            <ValidationMessage For="() => Book.PhotoUri" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </EditForm>
+                </div>
+            </div>
+        }
+        <div>
+            <a href="/books">Back to List</a>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <p class="text-danger">Musisz być zalogowany, aby edytować książkę.</p>
+        <a href="Account/Login">Zaloguj się</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    private Book? Book { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Book = await context.Book.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (Book is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task UpdateBook()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Book!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!BookExists(Book!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/books");
+    }
+
+    private bool BookExists(int id)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Book.Any(e => e.Id == id);
+    }
+}

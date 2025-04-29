@@ -1,0 +1,43 @@
+﻿@page "/books"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using RatingApp.Components
+@using RatingApp.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<RatingApp.Data.ApplicationDbContext> DbFactory
+@rendermode InteractiveServer
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="books/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="@books">
+    <PropertyColumn Property="book => book.Author" Sortable="true" />
+    <PropertyColumn Property="book => book.Title" Sortable="true"/>
+    <PropertyColumn Property="book => book.ReleaseDate" Sortable="true"/>
+    <PropertyColumn Property="book => book.Rate" Sortable="true"/>
+
+
+    <TemplateColumn Context="book">
+        <a href="@($"books/edit?id={book.Id}")">Edit</a> |
+        <a href="@($"books/details?id={book.Id}")">Details</a> |
+        <a href="@($"books/delete?id={book.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private ApplicationDbContext context = default!;
+    private IQueryable<Book> books = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+        books = context.Book.AsQueryable();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

@@ -1,0 +1,88 @@
+﻿@page "/books/details"
+@using Microsoft.EntityFrameworkCore
+@using RatingApp.Components
+@inject IDbContextFactory<RatingApp.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Book</h2>
+    <hr />
+    @if (book is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Author</dt>
+            <dd class="col-sm-10">@book.Author</dd>
+            <dt class="col-sm-2">Title</dt>
+            <dd class="col-sm-10">@book.Title</dd>
+            <dt class="col-sm-2">ReleaseDate</dt>
+            <dd class="col-sm-10">@book.ReleaseDate</dd>
+            <dt class="col-sm-2">Rate</dt>
+            <dd class="col-sm-10">@book.Rate</dd>
+            <dt class="col-sm-2">ShortReview</dt>
+            <dd class="col-sm-10">@book.ShortReview</dd>
+        </dl>
+        @if (!string.IsNullOrEmpty(book.PhotoUri))
+        {
+            <img src="@book.PhotoUri" alt="Book Image" style="max-width:300px;" class="my-3"/>
+        }
+        <EditForm Model="@this" OnValidSubmit="AddRating">
+            <div class="mb-3">
+                <label for="newRating" class="form-label">New Rating (1-10)</label>
+                <InputNumber @bind-Value="newRating" class="form-control" min="1" max="10" />
+            </div>
+            <button class="btn btn-primary" type="submit">Add Rating</button>
+        </EditForm>
+        <div>
+            <a href="@($"/books/edit?id={book.Id}")">Edit</a> |
+            <a href="@($"/books")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Book? book;
+    private int newRating = 5;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadBookAsync();
+    }
+
+    private async Task LoadBookAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        book = await context.Book.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (book is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task AddRating()
+    {
+        if (book is null) return;
+
+        using var context = DbFactory.CreateDbContext();
+        var currentBook = await context.Book.FirstOrDefaultAsync(b => b.Id == Id);
+
+        if (currentBook is null) return;
+
+        // Prosta średnia: nowa = (stara + nowa) / 2
+        currentBook.Rate = (currentBook.Rate + newRating) / 2;
+
+        await context.SaveChangesAsync();
+        await LoadBookAsync(); // reload updated data
+    }
+}
